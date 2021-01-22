@@ -13,6 +13,7 @@ The `gallery.json` file in the gallery root folder contains important settings f
 * `thumbnail_height` - height of the generated thumbnails in pixels (default 160).
 * `url` - URL of the website where your gallery will be hosted. This information is only needed to enable better display when you share a link to your gallery on social media like Twitter or Facebook. Example: `"https://www.haltakov.net/gallery_usa_multi/CUPcTB5AcbutK3vyLQ26"`.
 * `date_format` - optional parameter if you want to display the date the image is taken in the caption. See [Photo Date](#photo-date) for more information. Disabled by default.
+* `disbale_captions` - optional parameter that you can set to `true` if you want to disable the photo captions entirely. Set to `false` by default.
 
 ## Photo Captions
 
@@ -20,6 +21,11 @@ You can show a caption for each photo that is shown on the bottom of the image w
 
 1. **Image metadata**: some photo editors, like for example Adobe Lightroom, allow you to define a description for each image. It is written in the image metadata and the `gallery-build` can read it from there. It reads the `ImageDescription` EXIF tag. All captions are then stored in the `images_data.json` file.
 2. **Manually**: executing the `gallery-build` command will create a file called `images_data.json`. It contains some metadata for each photo and a property called `description` where you can enter the caption for each image.
+
+You can disable the captions by adding the following like to your `gallery.json` file. This is useful if your photos have some metadata in the `ImageDescription` EXIF tag. 
+```
+"disbale_captions": true
+```
 
 ### Photo Date
 
@@ -72,6 +78,15 @@ In the [multi-section example gallery](https://github.com/haltakov/simple-photo-
                               'San Francisco',
                               'Our trip ended in San Francisco, where we spent a lot of time in the great Golden Gate park and other must see places like the Embarcadero, Downtown and Alcatraz.',
                               images)}}
+```
+
+Alternatively, you can reference the photos by their name, instead of their index. In this case the second argument is the last photo you want to be shown in the section.
+
+```
+{{ gallery_macros.section('usa-123.jpg', 'use-203.jpg',
+                          'Joshua Tree National Park',
+                          'We spent 2 days in Joshua Tree National park. We spent the first night in the Black Rock campground. After that we travelled through the park for the whole day visiting several interesting view points and trails. After we spent the second night in the Jumbo Rocks campground we left the park from the south exit stopping at several places along the way.',
+                          images)}}
 ```
 
 ## Advanced Layout Configuration
